@@ -1,0 +1,35 @@
+<configuration>
+	<appender name="warnLogger" class="ch.qos.logback.core.FileAppender">
+		<append>false</append>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<file>logs/error.log</file>
+		<encoder>
+			<pattern>%date %level [%thread] [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="infoLogger" class="ch.qos.logback.core.FileAppender">
+		<append>false</append>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<file>logs/info.log</file>
+		<encoder>
+			<pattern>%date %level [%thread] [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%date %highlight(%level) [%thread] [%file:%line] %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<root level="debug">
+		<appender-ref ref="console"/>
+		<appender-ref ref="infoLogger"/>
+		<appender-ref ref="warnLogger"/>
+	</root>
+</configuration>
