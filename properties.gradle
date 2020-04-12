@@ -1,0 +1,7 @@
+ext {
+	versions = [
+					lombok: '1.18.12',
+					jooq: '3.12.1',
+					logback: '1.2.3'
+	]
+}
