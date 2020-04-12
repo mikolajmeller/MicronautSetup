@@ -1,6 +1,8 @@
+# Don't track this file because it store private data
+src/main/resources/application.yml
+
 .gradle
 .idea
 build
 gradle
 logs
-src/main/resources/application.yml
