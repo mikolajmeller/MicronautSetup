@@ -9,6 +9,7 @@ group 'org.example'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
+mainClassName = "micronautsetup.Application"
 run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
 
 tasks.withType(JavaCompile) {
@@ -16,12 +17,17 @@ tasks.withType(JavaCompile) {
 	options.compilerArgs.add('-parameters')
 }
 
-
 repositories {
 	mavenCentral()
 }
 
 dependencies {
+	// https://github.com/micronaut-projects/micronaut-core/issues/218
+	annotationProcessor "org.projectlombok:lombok:${versions.lombok}"
+	compileOnly "org.projectlombok:lombok:${versions.lombok}"
+	testCompileOnly "org.projectlombok:lombok:${versions.lombok}"
+	testAnnotationProcessor "org.projectlombok:lombok:${versions.lombok}"
+
 	annotationProcessor platform("io.micronaut:micronaut-bom:1.2.0")
 	implementation platform("io.micronaut:micronaut-bom:1.2.0")
 	annotationProcessor "io.micronaut:micronaut-inject-java"
@@ -33,14 +39,10 @@ dependencies {
 	implementation "io.micronaut:micronaut-http-server-netty"
 	implementation "io.micronaut:micronaut-http-client"
 	implementation "io.micronaut.configuration:micronaut-jooq"
-	annotationProcessor "org.projectlombok:lombok:${versions.lombok}"
-	compileOnly "org.projectlombok:lombok:${versions.lombok}"
 	compile "ch.qos.logback:logback-core:${versions.logback}"
 
 	testAnnotationProcessor platform("io.micronaut:micronaut-bom:1.2.0")
 	testImplementation "io.micronaut.test:micronaut-test-junit5"
-	testCompileOnly "org.projectlombok:lombok:${versions.lombok}"
-	testAnnotationProcessor "org.projectlombok:lombok:${versions.lombok}"
 	testCompile "ch.qos.logback:logback-classic:${versions.logback}"
 	runtimeOnly "ch.qos.logback:logback-classic:${versions.logback}"
 	testCompile "org.slf4j:slf4j-api:1.7.30"
