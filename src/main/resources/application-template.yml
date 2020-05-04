@@ -7,7 +7,7 @@ micronaut:
 jooq:
   datasources:
     test:
-      url: jdbc:mysql://localhost:3306/test
+      url: jdbc:mysql://localhost:3306/test?serverTimezone=Europe/Warsaw
       username: (username)
       password: (password)
       driverClassName: com.mysql.cj.jdbc.Driver

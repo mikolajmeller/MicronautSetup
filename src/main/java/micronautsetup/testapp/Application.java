@@ -1,4 +1,4 @@
-package micronautsetup;
+package micronautsetup.testapp;
 
 import io.micronaut.runtime.Micronaut;
 import lombok.extern.slf4j.Slf4j;

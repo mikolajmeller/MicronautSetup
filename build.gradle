@@ -9,7 +9,7 @@ group 'org.example'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
-mainClassName = "micronautsetup.Application"
+mainClassName = "micronautsetup.testapp.Application"
 run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
 
 tasks.withType(JavaCompile) {
@@ -40,6 +40,8 @@ dependencies {
 	implementation "io.micronaut:micronaut-http-client"
 	implementation "io.micronaut.configuration:micronaut-jooq"
 	compile "ch.qos.logback:logback-core:${versions.logback}"
+	runtime "io.micronaut.configuration:micronaut-jdbc-hikari"
+	runtime "mysql:mysql-connector-java:8.0.19"
 
 	testAnnotationProcessor platform("io.micronaut:micronaut-bom:1.2.0")
 	testImplementation "io.micronaut.test:micronaut-test-junit5"
