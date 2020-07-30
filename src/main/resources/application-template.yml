@@ -3,11 +3,12 @@
 
 micronaut:
   server:
-    port: 8090
-jooq:
-  datasources:
-    test:
-      url: jdbc:mysql://localhost:3306/test?serverTimezone=Europe/Warsaw
-      username: (username)
-      password: (password)
-      driverClassName: com.mysql.cj.jdbc.Driver
+    port: 8080
+    cors:
+      enabled: true
+datasources:
+  test:
+    url: jdbc:mysql://192.168.0.2:3306/test?serverTimezone=Europe/Warsaw
+    username: (username)
+    password: (password)
+    driverClassName: com.mysql.cj.jdbc.Driver

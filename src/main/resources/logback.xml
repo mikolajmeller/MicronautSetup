@@ -27,7 +27,7 @@
 		</encoder>
 	</appender>
 
-	<root level="debug">
+	<root level="info">
 		<appender-ref ref="console"/>
 		<appender-ref ref="infoLogger"/>
 		<appender-ref ref="warnLogger"/>

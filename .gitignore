@@ -1,5 +1,6 @@
-# Don't track this file because it store private data
+# Don't track this files because they store private data
 src/main/resources/application.yml
+.env
 
 .gradle
 .idea

@@ -39,17 +39,17 @@ dependencies {
 	implementation "io.micronaut:micronaut-http-server-netty"
 	implementation "io.micronaut:micronaut-http-client"
 	implementation "io.micronaut.configuration:micronaut-jooq"
-	compile "ch.qos.logback:logback-core:${versions.logback}"
-	runtime "io.micronaut.configuration:micronaut-jdbc-hikari"
-	runtime "mysql:mysql-connector-java:8.0.19"
+	implementation "ch.qos.logback:logback-core:${versions.logback}"
+	runtimeOnly "io.micronaut.configuration:micronaut-jdbc-hikari"
+	runtimeOnly "mysql:mysql-connector-java:8.0.19"
 
 	testAnnotationProcessor platform("io.micronaut:micronaut-bom:1.2.0")
 	testImplementation "io.micronaut.test:micronaut-test-junit5"
-	testCompile "ch.qos.logback:logback-classic:${versions.logback}"
+	testImplementation "ch.qos.logback:logback-classic:${versions.logback}"
 	runtimeOnly "ch.qos.logback:logback-classic:${versions.logback}"
-	testCompile "org.slf4j:slf4j-api:1.7.30"
+	testImplementation "org.slf4j:slf4j-api:1.7.30"
 	testAnnotationProcessor "io.micronaut:micronaut-inject-java"
-	testCompile "junit:junit:4.12"
+	testImplementation "junit:junit:4.12"
 	testImplementation "org.junit.jupiter:junit-jupiter-api"
 	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
 }

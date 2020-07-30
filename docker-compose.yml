@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+  db:
+    container_name: db
+    image: mysql/mysql-server
+    networks:
+      micronaut-setup:
+    env_file:
+      - .env
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    restart: always
+    volumes:
+    - ./database:/docker-entrypoint-initdb.d/:ro
+
+  backend:
+    container_name: backend
+    networks:
+      micronaut-setup:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+networks:
+  micronaut-setup:
