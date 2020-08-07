@@ -1,4 +1,4 @@
-package micronautsetup.testapp.model;
+package micronautsetup.testapp.user;
 
 import lombok.Value;
 
