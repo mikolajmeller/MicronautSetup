@@ -14,10 +14,16 @@ run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxrem
 
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
-	options.compilerArgs.add('-parameters')
+	options.compilerArgs.addAll([
+			'-parameters',
+			// enables incremental compilation
+//			'-Amicronaut.processing.incremental=true',
+			'-Amicronaut.processing.annotations=micronautsetup.testapp.*'
+	])
 }
 
 repositories {
+	jcenter()
 	mavenCentral()
 }
 
@@ -28,27 +34,29 @@ dependencies {
 	testCompileOnly "org.projectlombok:lombok:${versions.lombok}"
 	testAnnotationProcessor "org.projectlombok:lombok:${versions.lombok}"
 
-	annotationProcessor platform("io.micronaut:micronaut-bom:1.2.0")
-	implementation platform("io.micronaut:micronaut-bom:1.2.0")
+	annotationProcessor platform("io.micronaut:micronaut-bom:${versions.micronautBom}")
+	implementation platform("io.micronaut:micronaut-bom:${versions.micronautBom}")
+	annotationProcessor "io.micronaut.security:micronaut-security-annotations"
 	annotationProcessor "io.micronaut:micronaut-inject-java"
 	annotationProcessor "io.micronaut:micronaut-validation"
 	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
+	implementation "io.micronaut.security:micronaut-security-jwt"
 	implementation "io.micronaut:micronaut-inject"
 	implementation "io.micronaut:micronaut-validation"
 	implementation "io.micronaut:micronaut-runtime"
 	implementation "io.micronaut:micronaut-http-server-netty"
 	implementation "io.micronaut:micronaut-http-client"
-	implementation "io.micronaut.configuration:micronaut-jooq"
+	implementation "io.micronaut.configuration:micronaut-jooq:${versions.micronautJooq}"
+	runtimeOnly "io.micronaut.configuration:micronaut-jdbc-hikari:2.2.6"
 	implementation "ch.qos.logback:logback-core:${versions.logback}"
-	runtimeOnly "io.micronaut.configuration:micronaut-jdbc-hikari"
 	runtimeOnly "mysql:mysql-connector-java:8.0.19"
 
-	testAnnotationProcessor platform("io.micronaut:micronaut-bom:1.2.0")
+	testAnnotationProcessor platform("io.micronaut:micronaut-bom:${versions.micronautBom}")
 	testImplementation "io.micronaut.test:micronaut-test-junit5"
+	testAnnotationProcessor "io.micronaut:micronaut-inject-java"
 	testImplementation "ch.qos.logback:logback-classic:${versions.logback}"
 	runtimeOnly "ch.qos.logback:logback-classic:${versions.logback}"
 	testImplementation "org.slf4j:slf4j-api:1.7.30"
-	testAnnotationProcessor "io.micronaut:micronaut-inject-java"
 	testImplementation "junit:junit:4.12"
 	testImplementation "org.junit.jupiter:junit-jupiter-api"
 	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
