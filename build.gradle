@@ -14,7 +14,12 @@ run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxrem
 
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
-	options.compilerArgs.add('-parameters')
+	options.compilerArgs.addAll([
+			'-parameters',
+			// enables incremental compilation
+			// '-Amicronaut.processing.incremental=true',
+			'-Amicronaut.processing.annotations=micronautsetup.testapp.*'
+	])
 }
 
 repositories {
@@ -33,6 +38,8 @@ dependencies {
 	annotationProcessor "io.micronaut:micronaut-inject-java"
 	annotationProcessor "io.micronaut:micronaut-validation"
 	annotationProcessor "io.micronaut.configuration:micronaut-openapi"
+	annotationProcessor "io.micronaut.security:micronaut-security-annotations"
+	implementation "io.micronaut.security:micronaut-security-jwt"
 	implementation "io.micronaut:micronaut-inject"
 	implementation "io.micronaut:micronaut-validation"
 	implementation "io.micronaut:micronaut-runtime"

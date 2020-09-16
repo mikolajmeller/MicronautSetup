@@ -20,7 +20,7 @@ import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row2;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -43,7 +43,7 @@ import org.jooq.types.UInteger;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = 783187513;
+    private static final long serialVersionUID = 587455846;
 
     /**
      * The reference instance of <code>test.user</code>
@@ -67,6 +67,11 @@ public class User extends TableImpl<UserRecord> {
      * The column <code>test.user.name</code>.
      */
     public final TableField<UserRecord, String> NAME = createField(DSL.name("name"), org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+
+    /**
+     * The column <code>test.user.password</code>.
+     */
+    public final TableField<UserRecord, byte[]> PASSWORD = createField(DSL.name("password"), org.jooq.impl.SQLDataType.BLOB, this, "");
 
     /**
      * Create a <code>test.user</code> table reference
@@ -108,7 +113,7 @@ public class User extends TableImpl<UserRecord> {
 
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.USER_PRIMARY);
+        return Arrays.<Index>asList(Indexes.USER_NAME, Indexes.USER_PRIMARY);
     }
 
     @Override
@@ -123,7 +128,7 @@ public class User extends TableImpl<UserRecord> {
 
     @Override
     public List<UniqueKey<UserRecord>> getKeys() {
-        return Arrays.<UniqueKey<UserRecord>>asList(Keys.KEY_USER_PRIMARY);
+        return Arrays.<UniqueKey<UserRecord>>asList(Keys.KEY_USER_PRIMARY, Keys.KEY_USER_NAME);
     }
 
     @Override
@@ -153,11 +158,11 @@ public class User extends TableImpl<UserRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<UInteger, String> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row3<UInteger, String, byte[]> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 }

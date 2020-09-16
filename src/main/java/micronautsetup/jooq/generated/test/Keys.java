@@ -6,9 +6,12 @@ package micronautsetup.jooq.generated.test;
 
 import javax.annotation.processing.Generated;
 
+import micronautsetup.jooq.generated.test.tables.Auth;
 import micronautsetup.jooq.generated.test.tables.User;
+import micronautsetup.jooq.generated.test.tables.records.AuthRecord;
 import micronautsetup.jooq.generated.test.tables.records.UserRecord;
 
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
@@ -33,28 +36,39 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<AuthRecord, UInteger> IDENTITY_AUTH = Identities0.IDENTITY_AUTH;
     public static final Identity<UserRecord, UInteger> IDENTITY_USER = Identities0.IDENTITY_USER;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<AuthRecord> KEY_AUTH_PRIMARY = UniqueKeys0.KEY_AUTH_PRIMARY;
     public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = UniqueKeys0.KEY_USER_PRIMARY;
+    public static final UniqueKey<UserRecord> KEY_USER_NAME = UniqueKeys0.KEY_USER_NAME;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<AuthRecord, UserRecord> AUTH_IBFK_1 = ForeignKeys0.AUTH_IBFK_1;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Identities0 {
+        public static Identity<AuthRecord, UInteger> IDENTITY_AUTH = Internal.createIdentity(Auth.AUTH, Auth.AUTH.ID);
         public static Identity<UserRecord, UInteger> IDENTITY_USER = Internal.createIdentity(User.USER, User.USER.ID);
     }
 
     private static class UniqueKeys0 {
+        public static final UniqueKey<AuthRecord> KEY_AUTH_PRIMARY = Internal.createUniqueKey(Auth.AUTH, "KEY_auth_PRIMARY", Auth.AUTH.ID);
         public static final UniqueKey<UserRecord> KEY_USER_PRIMARY = Internal.createUniqueKey(User.USER, "KEY_user_PRIMARY", User.USER.ID);
+        public static final UniqueKey<UserRecord> KEY_USER_NAME = Internal.createUniqueKey(User.USER, "KEY_user_name", User.USER.NAME);
+    }
+
+    private static class ForeignKeys0 {
+        public static final ForeignKey<AuthRecord, UserRecord> AUTH_IBFK_1 = Internal.createForeignKey(micronautsetup.jooq.generated.test.Keys.KEY_USER_PRIMARY, Auth.AUTH, "auth_ibfk_1", Auth.AUTH.USER_ID);
     }
 }
