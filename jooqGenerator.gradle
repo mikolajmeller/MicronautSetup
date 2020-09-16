@@ -37,42 +37,54 @@ class JooqGenerate extends DefaultTask {
 	@Option(option = 'database', description = 'database for which code will be generated')
 	String database
 
+	def getDatabaseConfig() {
+		def file = new File('src/main/resources/application.yml')
+		Iterable<Map<String, Object>> configs = new Yaml().loadAll(file.newInputStream())
+		def it = configs.iterator()
+		while (it.hasNext()) {
+			def config = it.next()
+			if (config.containsKey('datasources')) {
+				return config.get('datasources')[database]
+			}
+		}
+		throw new Exception("database config not found")
+	}
+
 	@TaskAction
 	void jooqGenerate() {
 		def mainPackage = project.getRootProject().getName().toLowerCase()
 
-		def config = new Yaml().load(new File('src/main/resources/application.yml').newInputStream())
-		def databaseConfig = config.datasources[database]
+		def databaseConfig = getDatabaseConfig()
 
-			def targetPath = "src/main/java/${mainPackage}/jooq/generated/${database}"
+		def targetPath = "src/main/java/${mainPackage}/jooq/generated/${database}"
 
-			if (!new File(targetPath).exists()) {
-				project.mkdir targetPath
-			}
+		if (!new File(targetPath).exists()) {
+			project.mkdir targetPath
+		}
 
-			def writer = new StringWriter()
-			// Watch out for this caveat when using MarkupBuilder with "reserved names"
-			// - http://stackoverflow.com/a/11389034/521799
-			new MarkupBuilder(writer)
-							.configuration() {
-								jdbc() {
-									driver(databaseConfig.driverClassName)
-									url(databaseConfig.url)
-									user(databaseConfig.username)
-									password(databaseConfig.password)
+		def writer = new StringWriter()
+		// Watch out for this caveat when using MarkupBuilder with "reserved names"
+		// - http://stackoverflow.com/a/11389034/521799
+		new MarkupBuilder(writer)
+						.configuration() {
+							jdbc() {
+								driver(databaseConfig.driverClassName)
+								url(databaseConfig.url)
+								user(databaseConfig.username)
+								password(databaseConfig.password)
+							}
+							generator() {
+								database() {
+									inputSchema(database)
 								}
-								generator() {
-									database() {
-										inputSchema(database)
-									}
-									generate()
-									target() {
-										packageName("${mainPackage}.jooq.generated.${database}")
-										directory('src/main/java')
-									}
+								generate()
+								target() {
+									packageName("${mainPackage}.jooq.generated.${database}")
+									directory('src/main/java')
 								}
 							}
-			GenerationTool.generate(writer.toString())
+						}
+		GenerationTool.generate(writer.toString())
 	}
 }
 
