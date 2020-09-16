@@ -6,6 +6,7 @@ package micronautsetup.jooq.generated.test;
 
 import javax.annotation.processing.Generated;
 
+import micronautsetup.jooq.generated.test.tables.Auth;
 import micronautsetup.jooq.generated.test.tables.User;
 
 
@@ -21,6 +22,11 @@ import micronautsetup.jooq.generated.test.tables.User;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>test.auth</code>.
+     */
+    public static final Auth AUTH = Auth.AUTH;
 
     /**
      * The table <code>test.user</code>.

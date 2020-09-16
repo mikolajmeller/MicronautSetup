@@ -6,6 +6,7 @@ package micronautsetup.jooq.generated.test;
 
 import javax.annotation.processing.Generated;
 
+import micronautsetup.jooq.generated.test.tables.Auth;
 import micronautsetup.jooq.generated.test.tables.User;
 
 import org.jooq.Index;
@@ -30,6 +31,9 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index AUTH_PRIMARY = Indexes0.AUTH_PRIMARY;
+    public static final Index AUTH_USER_ID = Indexes0.AUTH_USER_ID;
+    public static final Index USER_NAME = Indexes0.USER_NAME;
     public static final Index USER_PRIMARY = Indexes0.USER_PRIMARY;
 
     // -------------------------------------------------------------------------
@@ -37,6 +41,9 @@ public class Indexes {
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index AUTH_PRIMARY = Internal.createIndex("PRIMARY", Auth.AUTH, new OrderField[] { Auth.AUTH.ID }, true);
+        public static Index AUTH_USER_ID = Internal.createIndex("user_id", Auth.AUTH, new OrderField[] { Auth.AUTH.USER_ID }, false);
+        public static Index USER_NAME = Internal.createIndex("name", User.USER, new OrderField[] { User.USER.NAME }, true);
         public static Index USER_PRIMARY = Internal.createIndex("PRIMARY", User.USER, new OrderField[] { User.USER.ID }, true);
     }
 }
