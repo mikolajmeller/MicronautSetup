@@ -6,6 +6,7 @@ import org.jooq.types.UInteger;
 
 import javax.inject.Singleton;
 
+import java.util.List;
 import java.util.Optional;
 
 import static micronautsetup.jooq.generated.test.Tables.*;
@@ -15,11 +16,26 @@ import static micronautsetup.jooq.generated.test.Tables.*;
 public class UserStorage {
     private final DSLContext context;
 
+    public List<User> getAll() {
+        return context.select()
+                .from(USER)
+                .fetchInto(User.class);
+    }
+
     public Optional<User> get(Integer id) {
         return context.select()
                 .from(USER)
                 .where(USER.ID.eq(UInteger.valueOf(id)))
                 .fetchOptionalInto(User.class);
+    }
+
+    public void delete(Integer id) {
+        int count = context.delete(USER)
+                .where(USER.ID.eq(UInteger.valueOf(id)))
+                .execute();
+        if (count == 0) {
+            throw new UserNotExist(id);
+        }
     }
 
     public Optional<User> get(String name) {
