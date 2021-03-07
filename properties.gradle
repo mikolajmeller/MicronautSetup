@@ -3,7 +3,7 @@ ext {
 					lombok: '1.18.12',
 					jooq: '3.12.1',
 					logback: '1.2.3',
-					micronautBom: '2.0.0',
+					micronautBom: '2.3.4',
 					micronautJooq: '2.2.6'
 	]
 }
